@@ -10,7 +10,7 @@ class HomePage extends GetView<HomeController> {
   HomePage({super.key});
 
   final List<FeaturesModel> listFeatures = [
-    FeaturesModel(label: 'Dasbor', icon: Icons.insert_chart_outlined),
+    FeaturesModel(label: 'Dasbor', icon: Icons.bar_chart_rounded),
     FeaturesModel(label: 'Daftar Pengunjung', icon: Icons.switch_account),
     FeaturesModel(label: 'Residen', icon: Icons.home_outlined),
   ];
@@ -73,10 +73,13 @@ class HomePage extends GetView<HomeController> {
                 ],
               ),
             ),
-            SpaceHeight(8),
+            SpaceHeight(24),
             Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-              color: Colors.white,
               width: MediaQuery.sizeOf(context).width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,17 +141,32 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   SpaceHeight(32),
-                  GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: (itemWidth / itemHeight),
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: List.generate(3, (index) {
-                      return _buildFeatureIcon(index, context);
-                    }),
-                  ),
+                  Obx(() {
+                    List<FeaturesModel> featuresToShow = [];
+                    if (controller.activeTabIndex.value == 2) {
+                      featuresToShow = [listFeatures[0]];
+                    } else {
+                      // Tampilkan semua fitur
+                      featuresToShow = listFeatures;
+                    }
+
+                    return GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: (itemWidth / itemHeight),
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: List.generate(featuresToShow.length, (index) {
+                        return _buildFeatureIcon(
+                          controller.activeTabIndex.value == 2
+                              ? 0
+                              : index, // Jika tab ketiga, selalu gunakan index 1
+                          context,
+                        );
+                      }),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -217,7 +235,7 @@ class HomePage extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(listFeatures[index].icon, color: Colors.grey[700]),
-        SpaceHeight(8),
+        SpaceHeight(12),
         Text(
           listFeatures[index].label,
           textAlign: TextAlign.center,

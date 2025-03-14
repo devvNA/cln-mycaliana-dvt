@@ -5,6 +5,16 @@ class BaseController extends GetxController {
   final pageController = PageController(initialPage: 0);
   final currentIndex = 0.obs;
 
+  void changePage(int index) {
+    currentIndex.value = index;
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    update();
+  }
+
   @override
   void onInit() {
     super.onInit();

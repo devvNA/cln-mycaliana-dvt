@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mycaliana_dvt/app/modules/home/home_controller.dart';
+import 'package:mycaliana_dvt/app/modules/profile/profile_controller.dart';
 
 import 'base_controller.dart';
 
@@ -8,5 +9,6 @@ class BaseBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<BaseController>(() => BaseController());
     Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }

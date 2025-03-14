@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 class Assets {
   const Assets._();
 
+  static const AssetGenImage avatar = AssetGenImage('assets/avatar.png');
   static const AssetGenImage icCaliana = AssetGenImage('assets/ic-caliana.png');
   static const AssetGenImage picIllustration1 = AssetGenImage(
     'assets/pic-illustration-1.jpg',
@@ -28,6 +29,7 @@ class Assets {
 
   /// List of all assets
   static List<AssetGenImage> get values => [
+    avatar,
     icCaliana,
     picIllustration1,
     picIllustration2,
