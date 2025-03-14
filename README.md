@@ -1,16 +1,13 @@
 # mycaliana_dvt
 
-A new Flutter project.
+A new Flutter project for Technical Test.
 
-## Getting Started
+## Tampilan Aplikasi
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+|           Screenshot 1            |           Screenshot 2            |
+| :-------------------------------: | :-------------------------------: |
+| <img src="ss_1.png" width="230"/> | <img src="ss_2.png" width="230"/> |
+|           Screenshot 3            |           Screenshot 4            |
+| <img src="ss_3.png" width="230"/> | <img src="ss_4.png" width="230"/> |
+|           Screenshot 5            |           Screenshot 6            |
+| <img src="ss_5.png" width="230"/> | <img src="ss_6.png" width="230"/> |

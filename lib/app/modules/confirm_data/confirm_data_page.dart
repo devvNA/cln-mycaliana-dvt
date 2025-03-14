@@ -11,14 +11,21 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Konfirmasi Data"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("Konfirmasi Data"),
+        centerTitle: true,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ExpansionTile(
+                initiallyExpanded: true,
                 title: const Text(
                   "Data Pribadi",
                   style: TextStyle(
@@ -35,17 +42,19 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
                 ),
                 children: [
                   _buildDataField(
-                    enable: true,
+                    readOnly: true,
                     label: "Nama",
                     icon: Icons.person_outline,
                     value: "test",
+                    iconColor: Colors.black,
                   ),
                   const SizedBox(height: 16),
                   _buildDataField(
-                    enable: true,
+                    readOnly: true,
                     label: "Email",
                     icon: Icons.alternate_email,
                     value: "test@gmail.com",
+                    iconColor: Colors.black,
                   ),
                 ],
               ),
@@ -67,10 +76,11 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
                 ),
                 children: [
                   _buildDataField(
-                    enable: false,
+                    readOnly: true,
                     label: "Berapa banyak orang yang bersama Anda?",
                     icon: Icons.star_border,
                     value: "1",
+                    iconColor: Colors.black,
                   ),
                 ],
               ),
@@ -81,7 +91,7 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
               // CustomButton().outlineButton(context, 'Batal', () {}),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: AppColors.lightBlue,
                   foregroundColor: Colors.white,
                   disabledBackgroundColor: Colors.grey,
                 ),
@@ -116,18 +126,14 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Text(
-                            'Pembatalan',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ).paddingOnly(top: 16),
-                          const SizedBox(height: 16),
-                          const Text(
-                            'Semua data tidak akan disimpan. Yakin ingin membatalkan?',
+                            'Semua data tidak akan disimpan.\nYakin ingin membatalkan?',
                             textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 16),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ).paddingAll(32),
+                          const SizedBox(height: 12),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -199,7 +205,8 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
     required String label,
     required IconData icon,
     required String value,
-    required bool enable,
+    required bool readOnly,
+    Color? iconColor,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -215,12 +222,12 @@ class ConfirmDataPage extends GetView<ConfirmDataController> {
             ),
           ),
           TextFormField(
-            readOnly: enable,
+            readOnly: readOnly,
             initialValue: value,
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
               hintText: value,
-              prefixIcon: Icon(icon),
+              prefixIcon: Icon(icon, color: iconColor, size: 18),
               fillColor: Colors.white,
             ),
           ),

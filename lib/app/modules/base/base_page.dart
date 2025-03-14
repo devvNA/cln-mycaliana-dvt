@@ -89,17 +89,7 @@ class BasePage extends GetView<BaseController> {
                         ),
                       ],
                     ),
-                  if (controller.currentIndex.value == 1)
-                    Container(
-                      margin: const EdgeInsets.only(right: 16),
-                      child: const Text(
-                        'Profil',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
+
                   SpaceWidth(16),
                   GestureDetector(
                     onTap: () {
@@ -111,6 +101,13 @@ class BasePage extends GetView<BaseController> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(18, 0, 0, 0),
+                            blurRadius: 24,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
                       ),
                       child: const Icon(
                         Icons.notifications_outlined,
