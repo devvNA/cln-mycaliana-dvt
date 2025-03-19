@@ -16,6 +16,7 @@ class HomeController extends GetxController {
     'Access Control System',
   ];
 
+  // Fungsi untuk menampilkan waktu real-time
   void _startLiveClock() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       currentTime.value = DateTime.now();
@@ -23,6 +24,7 @@ class HomeController extends GetxController {
     });
   }
 
+  // Fungsi untuk mengambil tanggal dan waktu saat ini
   String getFormattedDate() {
     DateTime now = DateTime.now();
 
@@ -31,6 +33,7 @@ class HomeController extends GetxController {
     return '$day\n$time';
   }
 
+  // Fungsi untuk memperbarui daftar pengunjung
   void refreshVisitors() {
     isLoading.value = true;
     // Simulate API call

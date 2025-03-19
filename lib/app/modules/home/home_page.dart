@@ -9,6 +9,7 @@ import 'home_controller.dart';
 class HomePage extends GetView<HomeController> {
   HomePage({super.key});
 
+  /// Fitur dan icon yang tersedia dalam aplikasi
   final List<FeaturesModel> listFeatures = [
     FeaturesModel(label: 'Dasbor', icon: Icons.bar_chart_rounded),
     FeaturesModel(label: 'Daftar Pengunjung', icon: Icons.switch_account),
@@ -35,6 +36,7 @@ class HomePage extends GetView<HomeController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Tanggal saat ini
                   Text(
                     controller.getFormattedDate().split('\n')[0],
                     style: const TextStyle(
@@ -43,7 +45,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   SpaceHeight(8),
-                  // Live Clock
+                  // Live Clock - Menampilkan waktu real-time
                   Obx(() {
                     return Text(
                       DateFormat(
@@ -57,6 +59,7 @@ class HomePage extends GetView<HomeController> {
                     );
                   }),
                   SpaceHeight(24),
+                  // Form input pencarian
                   TextFormField(
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search, color: Colors.grey),
@@ -74,6 +77,7 @@ class HomePage extends GetView<HomeController> {
               ),
             ),
             SpaceHeight(24),
+
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -89,6 +93,7 @@ class HomePage extends GetView<HomeController> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                   SpaceHeight(16),
+                  // Tab bar horizontal untuk kategori fitur
                   SizedBox(
                     height: 40,
                     child: ListView.separated(
@@ -141,6 +146,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   SpaceHeight(32),
+                  // Grid view untuk menampilkan fitur-fitur
                   Obx(() {
                     List<FeaturesModel> featuresToShow = [];
                     if (controller.activeTabIndex.value == 2) {
@@ -171,6 +177,7 @@ class HomePage extends GetView<HomeController> {
               ),
             ),
             SpaceHeight(32),
+            // Informasi pengunjung hari ini
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
               child: Column(
@@ -181,46 +188,53 @@ class HomePage extends GetView<HomeController> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                   SpaceHeight(32),
-                  Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Belum Ada Pengunjung Baru',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium?.copyWith(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'Pengunjung menunggu akan ditampilkan disini',
-                          style: textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        SpaceHeight(12),
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
-                            ),
+                  Obx(() {
+                    return Center(
+                      child:
+                          controller.isLoading.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Belum Ada Pengunjung Baru',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium?.copyWith(
+                                      color: Colors.grey[600],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Pengunjung menunggu akan ditampilkan disini',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: Colors.grey[700],
+                                    ),
+                                  ),
+                                  SpaceHeight(12),
+                                  OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
 
-                            side: const BorderSide(
-                              color: AppColors.secondary,
-                              width: 1.3,
-                            ),
-                          ),
-                          onPressed: () {},
-                          child: const Text(
-                            "Refresh",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                                      side: const BorderSide(
+                                        color: AppColors.secondary,
+                                        width: 1.3,
+                                      ),
+                                    ),
+                                    onPressed: controller.refreshVisitors,
+                                    child: const Text(
+                                      "Refresh",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -230,6 +244,9 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
+  /// Membangun widget ikon fitur dengan label
+  /// [index] adalah indeks fitur dalam listFeatures
+  /// [context] adalah BuildContext untuk mengakses tema
   _buildFeatureIcon(int index, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,6 +265,9 @@ class HomePage extends GetView<HomeController> {
   }
 }
 
+/// Model untuk menyimpan data fitur
+/// [label] adalah nama fitur yang ditampilkan
+/// [icon] adalah ikon yang merepresentasikan fitur
 class FeaturesModel {
   final String label;
   final IconData icon;

@@ -18,12 +18,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Mengatur orientasi layar hanya untuk mode portrait
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
     return GestureDetector(
+      // Menangani tap di luar keyboard untuk menutup keyboard
       onTap: () {
         FocusScopeNode currentNode = FocusScope.of(Get.context!);
         if (currentNode.focusedChild != null && !currentNode.hasPrimaryFocus) {
@@ -31,14 +33,13 @@ class MyApp extends StatelessWidget {
         }
       },
       child: GetMaterialApp(
-        popGesture: true,
-        // showPerformanceOverlay: true,
-        // showSemanticsDebugger: true,
-        defaultTransition: Transition.cupertino,
-        debugShowCheckedModeBanner: false,
-        theme: myTheme,
-        initialRoute: AppPages.INITIAL,
-        getPages: AppPages.routes,
+        popGesture: true, // Mengaktifkan gesture untuk pop navigation
+        defaultTransition:
+            Transition.cupertino, // Mengatur animasi transisi default
+        debugShowCheckedModeBanner: false, // Menyembunyikan banner debug
+        theme: myTheme, // Mengatur tema aplikasi
+        initialRoute: AppPages.INITIAL, // Mengatur rute awal
+        getPages: AppPages.routes, // Mengatur daftar rute aplikasi
       ),
     );
   }

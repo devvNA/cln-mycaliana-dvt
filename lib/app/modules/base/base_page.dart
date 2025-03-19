@@ -10,16 +10,24 @@ import 'package:mycaliana_dvt/app/routes/registration_routes.dart';
 
 import 'base_controller.dart';
 
+/// Halaman utama yang menampilkan navigasi dasar aplikasi
+/// Menggunakan GetX untuk state management dan navigasi
 class BasePage extends GetView<BaseController> {
   BasePage({super.key});
 
+  /// Daftar ikon untuk bottom navigation bar
   List<IconData> iconList = [Icons.home_outlined, Icons.person_outline_rounded];
+
+  /// Label untuk setiap item bottom navigation bar
   List<String> labelList = ["Beranda", "Profil"];
+
+  /// Daftar halaman yang akan ditampilkan sesuai navigasi
   List<Widget> listPages = [HomePage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar kustom dengan logo dan menu profil
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: GetBuilder<BaseController>(
@@ -27,17 +35,20 @@ class BasePage extends GetView<BaseController> {
               (controller) => AppBar(
                 backgroundColor: AppColors.background,
                 elevation: 0,
+                // Logo aplikasi
                 title: Image.asset(
                   Assets.icCaliana.path,
                   width: 80,
                   height: 80,
                 ),
                 actions: [
+                  // Widget profil yang hanya muncul di halaman beranda
                   if (controller.currentIndex.value == 0)
                     Stack(
                       clipBehavior: Clip.none,
                       alignment: Alignment.centerLeft,
                       children: [
+                        // Container nama operator
                         Positioned(
                           right: 32,
                           child: Container(
@@ -69,6 +80,7 @@ class BasePage extends GetView<BaseController> {
                             ),
                           ),
                         ),
+                        // Avatar operator
                         Container(
                           decoration: BoxDecoration(
                             color: Color(0xFFE5F8FF),
@@ -91,6 +103,7 @@ class BasePage extends GetView<BaseController> {
                     ),
 
                   SpaceWidth(16),
+                  // Tombol notifikasi
                   GestureDetector(
                     onTap: () {
                       // Get.to(const NotificationPage());
@@ -120,6 +133,7 @@ class BasePage extends GetView<BaseController> {
               ),
         ),
       ),
+      // PageView untuk menampilkan halaman sesuai navigasi
       body: PageView(
         onPageChanged: (index) {
           controller.currentIndex.value = index;
@@ -128,6 +142,7 @@ class BasePage extends GetView<BaseController> {
         physics: const NeverScrollableScrollPhysics(),
         children: List.generate(listPages.length, (index) => listPages[index]),
       ),
+      // Bottom navigation bar dengan notch untuk FAB
       bottomNavigationBar: Obx(() {
         return BottomAppBar(
           elevation: 0,
@@ -156,12 +171,14 @@ class BasePage extends GetView<BaseController> {
           ),
         );
       }),
+      // Floating action button dengan menu speed dial
       floatingActionButton: SpeedDial(
         backgroundColor: Colors.white,
         icon: Icons.add,
         iconTheme: IconThemeData(color: Colors.grey, size: 35),
         activeIcon: Icons.close,
         children: [
+          // Menu pra registrasi
           SpeedDialChild(
             foregroundColor: AppColors.primary,
             child: const Icon(Icons.contact_page_outlined),
@@ -169,6 +186,7 @@ class BasePage extends GetView<BaseController> {
             backgroundColor: Color(0xFFE5F8FF),
             onTap: () {},
           ),
+          // Menu registrasi
           SpeedDialChild(
             foregroundColor: AppColors.primary,
             child: const Icon(Icons.contact_page_outlined),
